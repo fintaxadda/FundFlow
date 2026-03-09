@@ -2,40 +2,34 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>FundFlow — SIP & SWP Calculator</title>
 
-<!-- PWA Manifest -->
+<!-- ── PWA Core ── -->
 <link rel="manifest" href="manifest.json">
-
-<!-- Theme & Status Bar -->
-<meta name="theme-color" content="#00e5a0">
+<meta name="theme-color" content="#00e5a0" id="metaThemeColor">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="FundFlow">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="application-name" content="FundFlow">
 
-<!-- SEO & Description -->
-<meta name="description" content="Calculate SIP, SWP and Lumpsum investment projections. Year-wise breakdown with Excel & PDF export. Works offline.">
-<meta name="keywords" content="SIP calculator, SWP calculator, lumpsum, investment, mutual fund, India">
-
-<!-- Open Graph -->
-<meta property="og:title" content="FundFlow — SIP & SWP Calculator">
-<meta property="og:description" content="Plan your investments with SIP, SWP & Lumpsum projections. Export to Excel & PDF.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="icons/icon-512x512.png">
-
-<!-- Icons -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<!-- ── Apple Touch Icons ── -->
 <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152x152.png">
-<link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144x144.png">
-<link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128x128.png">
+<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
 
-<!-- Splash screens for iOS -->
-<meta name="apple-touch-startup-image" content="icons/icon-512x512.png">
+<!-- ── Standard Icons ── -->
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
 
+<!-- ── SEO / Social ── -->
+<meta name="description" content="Professional SIP, SWP & Lumpsum investment calculator. Track fund growth, generate reports, export to PDF & Excel. Works offline.">
+<meta name="keywords" content="SIP calculator, SWP calculator, lumpsum, mutual fund, investment calculator, India">
+<meta property="og:title" content="FundFlow — SIP & SWP Calculator">
+<meta property="og:description" content="Professional investment calculator with charts, PDF/Excel export and offline support.">
+<meta property="og:type" content="website">
+
+<!-- ── Fonts ── -->
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -44,19 +38,63 @@
 <style>
 /* ─── TOKENS ─── */
 :root {
-  --bg:       #0a0e17;
-  --surface:  #111827;
-  --s2:       #1a2235;
-  --border:   #1e2d45;
-  --accent:   #00e5a0;
-  --gold:     #ffd166;
-  --red:      #ff6b6b;
-  --purple:   #a78bfa;
-  --text:     #e8edf5;
-  --muted:    #6b7a99;
-  --r-sm:     8px;
-  --r-md:     12px;
-  --r-lg:     16px;
+  --bg:           #0a0e17;
+  --surface:      #111827;
+  --surface-gen:  #131e2e;
+  --s2:           #1a2235;
+  --border:       #1e2d45;
+  --accent:       #00e5a0;
+  --gold:         #ffd166;
+  --red:          #ff6b6b;
+  --purple:       #a78bfa;
+  --text:         #e8edf5;
+  --label:        #c8d8f0;
+  --muted:        #8096b8;
+  --panel-title:  #a8b8d0;
+  --r-sm:         8px;
+  --r-md:         12px;
+  --r-lg:         16px;
+  --sec-gen-bg:   rgba(255,209,102,0.05);
+  --sec-gen-bdr:  rgba(255,209,102,0.15);
+  --sec-sip-bg:   rgba(0,229,160,0.04);
+  --sec-sip-bdr:  rgba(0,229,160,0.18);
+  --sec-lump-bg:  rgba(167,139,250,0.05);
+  --sec-lump-bdr: rgba(167,139,250,0.18);
+  --sec-swp-bg:   rgba(255,107,107,0.05);
+  --sec-swp-bdr:  rgba(255,107,107,0.18);
+  --input-bg:     #1a2235;
+  --input-bdr:    #253349;
+  --input-text:   #dde6f5;
+  --tog-bg:       #1a2235;
+  --tog-bdr:      #253349;
+  --tog-icon:     #a8b8d0;
+}
+
+/* ─── LIGHT THEME ─── */
+body.light {
+  --bg:           #f0f4fa;
+  --surface:      #ffffff;
+  --surface-gen:  #f8f9ff;
+  --s2:           #edf1f9;
+  --border:       #d0d9ea;
+  --text:         #1a2340;
+  --label:        #2e3f60;
+  --muted:        #5a6f96;
+  --panel-title:  #3a5080;
+  --sec-gen-bg:   rgba(255,180,30,0.07);
+  --sec-gen-bdr:  rgba(180,120,0,0.2);
+  --sec-sip-bg:   rgba(0,160,110,0.06);
+  --sec-sip-bdr:  rgba(0,140,90,0.22);
+  --sec-lump-bg:  rgba(110,70,230,0.05);
+  --sec-lump-bdr: rgba(110,70,230,0.2);
+  --sec-swp-bg:   rgba(210,40,40,0.05);
+  --sec-swp-bdr:  rgba(210,40,40,0.18);
+  --input-bg:     #f4f7fd;
+  --input-bdr:    #c0cde4;
+  --input-text:   #1a2340;
+  --tog-bg:       #e4eaf6;
+  --tog-bdr:      #c0cde4;
+  --tog-icon:     #3a5080;
 }
 
 /* ─── RESET ─── */
@@ -65,6 +103,7 @@ html { font-size: 16px; }
 body {
   background: var(--bg);
   color: var(--text);
+  transition: background .3s, color .3s;
   font-family: 'DM Sans', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
@@ -176,11 +215,11 @@ header {
 .panel-title {
   font-family: 'DM Mono', monospace;
   font-size: 10px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--muted);
+  text-transform: uppercase; color: var(--panel-title);
 }
 
-.panel-body { padding: 16px; }
-.input-section { margin-bottom: 18px; }
+.panel-body { padding: 14px; background: var(--surface); }
+/* .input-section styles moved to section backgrounds block */
 
 /* Section label */
 .sec-lbl {
@@ -202,15 +241,15 @@ header {
 .ig label {
   display: block;
   font-size: 11px; font-weight: 500;
-  color: var(--muted); margin-bottom: 5px;
+  color: var(--label); margin-bottom: 5px;
 }
 
 /* Number input — increase tap target on mobile */
 input[type="number"] {
   width: 100%;
-  background: var(--s2);
-  border: 1px solid var(--border);
-  color: var(--text);
+  background: var(--input-bg);
+  border: 1px solid var(--input-bdr);
+  color: var(--input-text);
   font-family: 'DM Mono', monospace;
   font-size: 14px;
   padding: 10px 12px;
@@ -248,7 +287,7 @@ input[type=number] { -moz-appearance: textfield; }
   margin-top: 4px;
   gap: 12px;
 }
-.toggle-lbl { font-size: 12px; color: var(--muted); flex: 1; min-width: 0; }
+.toggle-lbl { font-size: 12px; color: var(--label); flex: 1; min-width: 0; font-weight: 500; }
 .toggle { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
 .toggle input { display: none; }
 .toggle-track {
@@ -386,6 +425,16 @@ input[type=number] { -moz-appearance: textfield; }
   line-height: 1.1; margin-bottom: 3px;
 }
 .stat-lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'DM Mono', monospace; }
+body.light .stat-card { background: #ffffff; }
+body.light .chart-card { background: #ffffff; }
+body.light .table-card { background: #ffffff; }
+body.light thead { background: #edf1f9; }
+body.light tfoot tr td { background: #edf1f9; }
+body.light th { color: var(--muted); }
+body.light td { border-bottom-color: #e0e8f4; }
+body.light tr:hover td { background: rgba(0,0,0,.02); }
+body.light .panel-hdr { background: var(--surface); }
+body.light .input-panel { background: var(--surface); border-color: var(--border); }
 .stat-card.c-sip  .stat-val { color: var(--accent); }
 .stat-card.c-lump .stat-val { color: var(--purple); }
 .stat-card.c-swp  .stat-val { color: var(--red); }
@@ -491,6 +540,7 @@ td {
   font-family: 'DM Mono', monospace; font-size: 11px; white-space: nowrap;
 }
 td:nth-child(1), td:nth-child(2) { text-align: left; color: var(--muted); }
+body.light td:nth-child(1), body.light td:nth-child(2) { color: var(--muted); }
 tr:hover td { background: rgba(255,255,255,.02); }
 .v-sip  { color: var(--accent); }
 .v-lump { color: var(--purple); }
@@ -508,6 +558,274 @@ tfoot tr td {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ─── SECTION BACKGROUNDS ─── */
+.input-section {
+  border-radius: var(--r-md);
+  padding: 14px;
+  margin-bottom: 12px;
+  border: 1px solid transparent;
+  transition: background .3s, border-color .3s;
+}
+.sec-gen  { background: var(--sec-gen-bg);  border-color: var(--sec-gen-bdr); }
+.sec-sip  { background: var(--sec-sip-bg);  border-color: var(--sec-sip-bdr); }
+.sec-lump { background: var(--sec-lump-bg); border-color: var(--sec-lump-bdr); }
+.sec-swp  { background: var(--sec-swp-bg);  border-color: var(--sec-swp-bdr); }
+
+/* ─── THEME TOGGLE BUTTON ─── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--tog-bg);
+  border: 1px solid var(--tog-bdr);
+  border-radius: 20px;
+  padding: 5px 12px 5px 8px;
+  cursor: pointer;
+  transition: all .25s;
+  -webkit-tap-highlight-color: transparent;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle-track {
+  position: relative;
+  width: 32px; height: 18px;
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  transition: .25s;
+  flex-shrink: 0;
+}
+.theme-toggle-track::after {
+  content: '';
+  position: absolute;
+  left: 2px; top: 2px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: .25s;
+}
+body.light .theme-toggle-track {
+  background: rgba(0,229,160,0.15);
+  border-color: var(--accent);
+}
+body.light .theme-toggle-track::after {
+  transform: translateX(14px);
+  background: var(--accent);
+}
+.theme-toggle-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--tog-icon);
+  transition: color .25s;
+  user-select: none;
+}
+.theme-icon { font-size: 13px; }
+
+/* light mode: tone down the grid overlay */
+body.light::before { opacity: .06; }
+body.light::after  { opacity: .3; }
+
+/* light mode: surface transitions */
+.input-panel, .stat-card, .chart-card, .table-card,
+thead, tfoot tr td {
+  transition: background .3s, border-color .3s, color .3s;
+}
+
+/* ─── IMPROVED LABEL SIZING ─── */
+.ig label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px;
+}
+
+/* ─── 3D INPUT TABS ─── */
+.input-tabs-wrapper {
+  margin-bottom: 18px;
+}
+
+.tab-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.tab-btn {
+  position: relative;
+  padding: 11px 6px 14px;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all .2s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: -1px;
+}
+
+.tab-btn .tab-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.tab-btn .tab-label {
+  line-height: 1;
+}
+
+/* SIP tab — green */
+.tab-btn.sip-tab {
+  background: linear-gradient(160deg, #0d2b1e 0%, #091a12 100%);
+  color: rgba(0,229,160,0.55);
+  border: 1px solid rgba(0,229,160,0.15);
+  border-bottom: none;
+  box-shadow:
+    0 -2px 0 0 rgba(0,229,160,0.0) inset,
+    4px 0 12px -4px rgba(0,0,0,0.4),
+    -4px 0 12px -4px rgba(0,0,0,0.4),
+    0 -6px 14px -4px rgba(0,0,0,0.3);
+  transform: translateY(4px);
+}
+.tab-btn.sip-tab:hover {
+  background: linear-gradient(160deg, #102e20 0%, #0b1f15 100%);
+  color: rgba(0,229,160,0.8);
+  transform: translateY(2px);
+}
+.tab-btn.sip-tab.active {
+  background: linear-gradient(160deg, #142e20 0%, #0e2418 100%);
+  color: var(--accent);
+  border-color: rgba(0,229,160,0.4);
+  transform: translateY(0px);
+  box-shadow:
+    0 3px 0 0 rgba(0,229,160,0.15) inset,
+    4px 0 16px -4px rgba(0,229,160,0.12),
+    -4px 0 16px -4px rgba(0,229,160,0.12),
+    0 -4px 20px -4px rgba(0,229,160,0.08);
+  z-index: 3;
+}
+
+/* Lumpsum tab — purple */
+.tab-btn.lump-tab {
+  background: linear-gradient(160deg, #1a1030 0%, #100920 100%);
+  color: rgba(167,139,250,0.5);
+  border: 1px solid rgba(167,139,250,0.15);
+  border-bottom: none;
+  box-shadow:
+    4px 0 12px -4px rgba(0,0,0,0.4),
+    -4px 0 12px -4px rgba(0,0,0,0.4),
+    0 -6px 14px -4px rgba(0,0,0,0.3);
+  transform: translateY(4px);
+}
+.tab-btn.lump-tab:hover {
+  background: linear-gradient(160deg, #1d1235 0%, #120b24 100%);
+  color: rgba(167,139,250,0.8);
+  transform: translateY(2px);
+}
+.tab-btn.lump-tab.active {
+  background: linear-gradient(160deg, #211440 0%, #160d2e 100%);
+  color: var(--purple);
+  border-color: rgba(167,139,250,0.4);
+  transform: translateY(0px);
+  box-shadow:
+    0 3px 0 0 rgba(167,139,250,0.12) inset,
+    4px 0 16px -4px rgba(167,139,250,0.12),
+    -4px 0 16px -4px rgba(167,139,250,0.12),
+    0 -4px 20px -4px rgba(167,139,250,0.08);
+  z-index: 3;
+}
+
+/* SWP tab — red */
+.tab-btn.swp-tab {
+  background: linear-gradient(160deg, #2a1010 0%, #1a0a0a 100%);
+  color: rgba(255,107,107,0.5);
+  border: 1px solid rgba(255,107,107,0.15);
+  border-bottom: none;
+  box-shadow:
+    4px 0 12px -4px rgba(0,0,0,0.4),
+    -4px 0 12px -4px rgba(0,0,0,0.4),
+    0 -6px 14px -4px rgba(0,0,0,0.3);
+  transform: translateY(4px);
+}
+.tab-btn.swp-tab:hover {
+  background: linear-gradient(160deg, #2e1212 0%, #1d0c0c 100%);
+  color: rgba(255,107,107,0.8);
+  transform: translateY(2px);
+}
+.tab-btn.swp-tab.active {
+  background: linear-gradient(160deg, #331414 0%, #200e0e 100%);
+  color: var(--red);
+  border-color: rgba(255,107,107,0.4);
+  transform: translateY(0px);
+  box-shadow:
+    0 3px 0 0 rgba(255,107,107,0.1) inset,
+    4px 0 16px -4px rgba(255,107,107,0.12),
+    -4px 0 16px -4px rgba(255,107,107,0.12),
+    0 -4px 20px -4px rgba(255,107,107,0.08);
+  z-index: 3;
+}
+
+/* Tab pane container */
+.tab-pane-container {
+  position: relative;
+  z-index: 1;
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  overflow: hidden;
+}
+
+.tab-pane {
+  display: none;
+  padding: 16px;
+  animation: tabFadeIn .2s ease;
+}
+.tab-pane.active { display: block; }
+
+@keyframes tabFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Pane color tints */
+.tab-pane.sip-pane  {
+  background: var(--sec-sip-bg);
+  border: 1px solid var(--sec-sip-bdr);
+  border-top: 3px solid rgba(0,229,160,0.55);
+}
+.tab-pane.lump-pane {
+  background: var(--sec-lump-bg);
+  border: 1px solid var(--sec-lump-bdr);
+  border-top: 3px solid rgba(167,139,250,0.55);
+}
+.tab-pane.swp-pane  {
+  background: var(--sec-swp-bg);
+  border: 1px solid var(--sec-swp-bdr);
+  border-top: 3px solid rgba(255,107,107,0.55);
+}
+
+/* Divider between general section and tabs */
+.tabs-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0 14px;
+  opacity: 0.7;
+}
+.tabs-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
 </style>
 </head>
 <body>
@@ -519,7 +837,14 @@ tfoot tr td {
     <span class="logo-mark">FundFlow</span>
     <span class="logo-sub">Calculator</span>
   </div>
-  <span class="header-tag">SIP · SWP · Lumpsum</span>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="header-tag">SIP · SWP · Lumpsum</span>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">
+      <span class="theme-icon" id="themeIcon">🌙</span>
+      <div class="theme-toggle-track"></div>
+      <span class="theme-toggle-label" id="themeLbl">Dark</span>
+    </button>
+  </div>
 </header>
 
 <div class="main-grid">
@@ -532,8 +857,8 @@ tfoot tr td {
     </div>
     <div class="panel-body">
 
-      <!-- General -->
-      <div class="input-section">
+      <!-- General — always visible -->
+      <div class="input-section sec-gen">
         <div class="sec-lbl gen">General</div>
         <div class="row2">
           <div class="ig">
@@ -563,81 +888,105 @@ tfoot tr td {
         </div>
       </div>
 
-      <!-- SIP -->
-      <div class="input-section">
-        <div class="sec-lbl">SIP — Monthly Invest</div>
-        <div class="ig">
-          <label>Monthly SIP Amount (₹)</label>
-          <input type="number" id="sipAmt" value="10000" min="0" inputmode="numeric">
+      <!-- 3D Tabs: SIP / Lumpsum / SWP -->
+      <div class="tabs-divider"></div>
+      <div class="tabs-section-label">Investment Strategy</div>
+      <div class="input-tabs-wrapper">
+        <div class="tab-nav">
+          <button class="tab-btn sip-tab active" onclick="switchTab('sip')">
+            <span class="tab-icon">💰</span>
+            <span class="tab-label">SIP</span>
+          </button>
+          <button class="tab-btn lump-tab" onclick="switchTab('lump')">
+            <span class="tab-icon">🏋️</span>
+            <span class="tab-label">LUMPSUM</span>
+          </button>
+          <button class="tab-btn swp-tab" onclick="switchTab('swp')">
+            <span class="tab-icon">💸</span>
+            <span class="tab-label">SWP</span>
+          </button>
         </div>
-        <div class="row2">
-          <div class="ig">
-            <label>SIP Start Year</label>
-            <div class="sfx">
-              <input type="number" id="sipStart" value="1" min="1" inputmode="numeric">
-              <span class="sfx-txt">yr</span>
-            </div>
-          </div>
-          <div class="ig">
-            <label>SIP End Year</label>
-            <div class="sfx">
-              <input type="number" id="sipEnd" value="20" min="1" inputmode="numeric">
-              <span class="sfx-txt">yr</span>
-            </div>
-          </div>
-        </div>
-        <div class="range-tag" id="sipTag" style="color:var(--accent)"></div>
-      </div>
 
-      <!-- Lumpsum -->
-      <div class="input-section">
-        <div class="sec-lbl lump">Lumpsum — One-time</div>
-        <div class="lump-list" id="lumpList">
-          <div class="lump-card">
-            <div class="lump-card-row">
+        <div class="tab-pane-container">
+
+          <!-- SIP Pane -->
+          <div class="tab-pane sip-pane active sec-sip" id="pane-sip">
+            <div class="sec-lbl" style="margin-top:0">Monthly Invest</div>
+            <div class="ig">
+              <label>Monthly SIP Amount (₹)</label>
+              <input type="number" id="sipAmt" value="10000" min="0" inputmode="numeric">
+            </div>
+            <div class="row2">
               <div class="ig">
-                <label>Amount (₹)</label>
-                <input type="number" class="lump-input lump-amt" value="100000" min="0" inputmode="numeric">
-              </div>
-              <div class="ig">
-                <label>At Year</label>
+                <label>SIP Start Year</label>
                 <div class="sfx">
-                  <input type="number" class="lump-input lump-yr" value="1" min="1" inputmode="numeric">
+                  <input type="number" id="sipStart" value="1" min="1" inputmode="numeric">
                   <span class="sfx-txt">yr</span>
                 </div>
               </div>
-              <button class="lump-rm" onclick="rmLump(this)" aria-label="Remove">×</button>
+              <div class="ig">
+                <label>SIP End Year</label>
+                <div class="sfx">
+                  <input type="number" id="sipEnd" value="20" min="1" inputmode="numeric">
+                  <span class="sfx-txt">yr</span>
+                </div>
+              </div>
             </div>
+            <div class="range-tag" id="sipTag" style="color:var(--accent)"></div>
           </div>
-        </div>
-        <button class="add-lump" onclick="addLump()">+ Add Another Lumpsum</button>
-      </div>
 
-      <!-- SWP -->
-      <div class="input-section">
-        <div class="sec-lbl swp">SWP — Monthly Withdraw</div>
-        <div class="ig">
-          <label>Monthly SWP Amount (₹)</label>
-          <input type="number" id="swpAmt" value="30000" class="swp-input" min="0" inputmode="numeric">
-        </div>
-        <div class="row2">
-          <div class="ig">
-            <label>SWP Start Year</label>
-            <div class="sfx">
-              <input type="number" id="swpStart" value="21" min="1" inputmode="numeric">
-              <span class="sfx-txt">yr</span>
+          <!-- Lumpsum Pane -->
+          <div class="tab-pane lump-pane sec-lump" id="pane-lump">
+            <div class="sec-lbl lump" style="margin-top:0">One-time Investments</div>
+            <div class="lump-list" id="lumpList">
+              <div class="lump-card">
+                <div class="lump-card-row">
+                  <div class="ig">
+                    <label>Amount (₹)</label>
+                    <input type="number" class="lump-input lump-amt" value="100000" min="0" inputmode="numeric">
+                  </div>
+                  <div class="ig">
+                    <label>At Year</label>
+                    <div class="sfx">
+                      <input type="number" class="lump-input lump-yr" value="1" min="1" inputmode="numeric">
+                      <span class="sfx-txt">yr</span>
+                    </div>
+                  </div>
+                  <button class="lump-rm" onclick="rmLump(this)" aria-label="Remove">×</button>
+                </div>
+              </div>
             </div>
+            <button class="add-lump" onclick="addLump()">+ Add Another Lumpsum</button>
           </div>
-          <div class="ig">
-            <label>SWP End Year</label>
-            <div class="sfx">
-              <input type="number" id="swpEnd" value="30" min="1" inputmode="numeric">
-              <span class="sfx-txt">yr</span>
+
+          <!-- SWP Pane -->
+          <div class="tab-pane swp-pane sec-swp" id="pane-swp">
+            <div class="sec-lbl swp" style="margin-top:0">Monthly Withdraw</div>
+            <div class="ig">
+              <label>Monthly SWP Amount (₹)</label>
+              <input type="number" id="swpAmt" value="30000" class="swp-input" min="0" inputmode="numeric">
             </div>
+            <div class="row2">
+              <div class="ig">
+                <label>SWP Start Year</label>
+                <div class="sfx">
+                  <input type="number" id="swpStart" value="21" min="1" inputmode="numeric">
+                  <span class="sfx-txt">yr</span>
+                </div>
+              </div>
+              <div class="ig">
+                <label>SWP End Year</label>
+                <div class="sfx">
+                  <input type="number" id="swpEnd" value="30" min="1" inputmode="numeric">
+                  <span class="sfx-txt">yr</span>
+                </div>
+              </div>
+            </div>
+            <div class="range-tag" id="swpTag" style="color:var(--red)"></div>
           </div>
-        </div>
-        <div class="range-tag" id="swpTag" style="color:var(--red)"></div>
-      </div>
+
+        </div><!-- /tab-pane-container -->
+      </div><!-- /input-tabs-wrapper -->
 
       <div class="err-msg" id="errMsg"></div>
       <button class="calc-btn" onclick="calc()">
@@ -975,9 +1324,10 @@ function renderChart(){
       },
       scales:{
         x:{grid:{color:'rgba(30,45,69,.45)'},
-          ticks:{color:'#6b7a99',font:{family:'DM Mono',size:9},maxTicksLimit:10}},
-        y:{grid:{color:'rgba(30,45,69,.45)'},
-          ticks:{color:'#6b7a99',font:{family:'DM Mono',size:9},callback:v=>fmt(v)}}
+          ticks:{color:document.body.classList.contains('light')?'#5a6f96':'#6b7a99',font:{family:'DM Mono',size:9},maxTicksLimit:10}},
+        y:{grid:{color:document.body.classList.contains('light')?'rgba(180,200,230,.5)':'rgba(30,45,69,.45)'},
+
+          ticks:{color:document.body.classList.contains('light')?'#5a6f96':'#6b7a99',font:{family:'DM Mono',size:9},callback:v=>fmt(v)}}
       }
     }
   });
@@ -1204,206 +1554,167 @@ function doPDF(){
 }
 
 /* ══════════════════════════════════════════
+   THEME TOGGLE
+══════════════════════════════════════════ */
+function toggleTheme(){
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('themeIcon').textContent = isLight ? '☀️' : '🌙';
+  document.getElementById('themeLbl').textContent  = isLight ? 'Light' : 'Dark';
+  // Rebuild chart with new colors if exists
+  if(chart){ renderChart(); }
+}
+
+/* ══════════════════════════════════════════
+   INPUT TABS
+══════════════════════════════════════════ */
+function switchTab(name){
+  // Deactivate all tabs and panes
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  // Activate selected
+  document.querySelector('.tab-btn.'+name+'-tab').classList.add('active');
+  document.getElementById('pane-'+name).classList.add('active');
+}
+
+/* ══════════════════════════════════════════
    INIT
 ══════════════════════════════════════════ */
 window.addEventListener('load',()=>{updateTags();calc();});
+</script>
 
+<!-- ── PWA Install Banner ── -->
+<div id="installBanner" style="display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+  z-index:9999;background:#111827;border:1px solid #00e5a0;border-radius:14px;
+  padding:14px 18px;display:none;align-items:center;gap:12px;
+  box-shadow:0 8px 32px rgba(0,229,160,0.15);max-width:calc(100vw - 32px);
+  font-family:'DM Sans',sans-serif;animation:slideUp .3s ease;">
+  <span style="font-size:24px">📲</span>
+  <div style="flex:1;min-width:0">
+    <div style="font-size:13px;font-weight:700;color:#e8edf5">Install FundFlow</div>
+    <div style="font-size:11px;color:#7e8fad;margin-top:2px">Add to home screen for offline use</div>
+  </div>
+  <button onclick="doInstall()" style="background:#00e5a0;color:#0a0e17;border:none;
+    padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;
+    white-space:nowrap">Install</button>
+  <button onclick="dismissInstall()" style="background:none;border:none;color:#6b7a99;
+    font-size:20px;cursor:pointer;padding:0 2px;line-height:1">×</button>
+</div>
+
+<!-- ── SW Update Toast ── -->
+<div id="updateToast" style="display:none;position:fixed;top:16px;right:16px;z-index:9999;
+  background:#111827;border:1px solid #ffd166;border-radius:12px;padding:12px 16px;
+  font-family:'DM Sans',sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.3);max-width:280px;">
+  <div style="font-size:13px;font-weight:600;color:#ffd166;margin-bottom:6px">Update Available</div>
+  <div style="font-size:11px;color:#7e8fad;margin-bottom:10px">A new version of FundFlow is ready.</div>
+  <button onclick="applyUpdate()" style="background:#ffd166;color:#0a0e17;border:none;
+    padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer">Reload & Update</button>
+</div>
+
+<style>
+@keyframes slideUp { from{opacity:0;transform:translateX(-50%) translateY(20px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+</style>
+
+<script>
 /* ══════════════════════════════════════════
-   SERVICE WORKER REGISTRATION
+   PWA — Service Worker Registration
 ══════════════════════════════════════════ */
+let deferredInstallPrompt = null;
+let newSWWaiting = null;
+
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(reg => {
-        console.log('[FundFlow] SW registered:', reg.scope);
-        // Check for updates
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              showUpdateBanner();
-            }
-          });
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register('./sw.js');
+      console.log('[FundFlow SW] Registered:', reg.scope);
+
+      // Check for updates
+      reg.addEventListener('updatefound', () => {
+        const newSW = reg.installing;
+        newSW.addEventListener('statechange', () => {
+          if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+            newSWWaiting = newSW;
+            document.getElementById('updateToast').style.display = 'block';
+          }
         });
-      })
-      .catch(err => console.log('[FundFlow] SW registration failed:', err));
+      });
+    } catch (err) {
+      console.warn('[FundFlow SW] Registration failed:', err);
+    }
   });
+
+  // Reload when new SW takes control
+  navigator.serviceWorker.addEventListener('controllerchange', () => location.reload());
 }
 
-/* ══════════════════════════════════════════
-   PWA INSTALL PROMPT
-══════════════════════════════════════════ */
-let deferredPrompt = null;
-
+/* Install prompt */
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
-  deferredPrompt = e;
-  // Show install banner after 3 seconds if not already installed
-  setTimeout(() => showInstallBanner(), 3000);
+  deferredInstallPrompt = e;
+  const banner = document.getElementById('installBanner');
+  banner.style.display = 'flex';
+  // Auto-hide after 8s
+  setTimeout(() => { banner.style.display = 'none'; }, 8000);
 });
 
 window.addEventListener('appinstalled', () => {
-  hideInstallBanner();
-  deferredPrompt = null;
+  document.getElementById('installBanner').style.display = 'none';
+  deferredInstallPrompt = null;
   showToast('✅ FundFlow installed! Find it on your home screen.');
 });
 
-function showInstallBanner() {
-  const b = document.getElementById('installBanner');
-  if (b && !localStorage.getItem('ff-install-dismissed')) {
-    b.classList.add('show');
-  }
+function doInstall() {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.then(c => {
+    deferredInstallPrompt = null;
+    document.getElementById('installBanner').style.display = 'none';
+  });
 }
-
-function hideInstallBanner() {
-  const b = document.getElementById('installBanner');
-  if (b) b.classList.remove('show');
-}
-
 function dismissInstall() {
-  hideInstallBanner();
-  localStorage.setItem('ff-install-dismissed', '1');
+  document.getElementById('installBanner').style.display = 'none';
 }
-
-async function triggerInstall() {
-  if (!deferredPrompt) return;
-  hideInstallBanner();
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if (outcome === 'accepted') showToast('🎉 Installing FundFlow…');
-  deferredPrompt = null;
-}
-
-function showUpdateBanner() {
-  showToast('🔄 Update available — refresh to get the latest version.', 6000);
-}
-
-/* ══════════════════════════════════════════
-   TOAST NOTIFICATION
-══════════════════════════════════════════ */
-function showToast(msg, duration = 3500) {
-  const t = document.getElementById('toast');
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), duration);
-}
-
-/* ══════════════════════════════════════════
-   ONLINE / OFFLINE INDICATOR
-══════════════════════════════════════════ */
-function updateOnlineStatus() {
-  const el = document.getElementById('offlineBadge');
-  if (!el) return;
-  if (!navigator.onLine) {
-    el.textContent = '📴 Offline — using cached data';
-    el.style.display = 'flex';
-  } else {
-    el.style.display = 'none';
+function applyUpdate() {
+  if (newSWWaiting) {
+    newSWWaiting.postMessage({ type: 'SKIP_WAITING' });
   }
 }
-window.addEventListener('online',  updateOnlineStatus);
-window.addEventListener('offline', updateOnlineStatus);
-window.addEventListener('load', updateOnlineStatus);
+
+/* Mini toast helper */
+function showToast(msg, duration=3500) {
+  const el = document.createElement('div');
+  el.textContent = msg;
+  Object.assign(el.style, {
+    position:'fixed', bottom:'80px', left:'50%', transform:'translateX(-50%)',
+    background:'#111827', border:'1px solid #1e2d45', color:'#e8edf5',
+    padding:'10px 18px', borderRadius:'10px', fontSize:'13px',
+    fontFamily:"'DM Sans',sans-serif", zIndex:'9998',
+    boxShadow:'0 4px 16px rgba(0,0,0,.4)', whiteSpace:'nowrap',
+    animation:'slideUp .3s ease'
+  });
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), duration);
+}
+
+/* Theme toggle: also update theme-color meta */
+const _origToggle = typeof toggleTheme === 'function' ? toggleTheme : null;
+function patchThemeToggle() {
+  const origFn = window.toggleTheme;
+  window.toggleTheme = function() {
+    origFn();
+    const isLight = document.body.classList.contains('light');
+    document.getElementById('metaThemeColor').setAttribute('content', isLight ? '#f0f4fa' : '#00e5a0');
+  };
+}
+window.addEventListener('load', () => setTimeout(patchThemeToggle, 100));
+
+/* Handle URL hash shortcuts (from manifest shortcuts) */
+window.addEventListener('load', () => {
+  const hash = location.hash;
+  if (hash === '#sip')  setTimeout(() => switchTab('sip'), 300);
+  if (hash === '#swp')  setTimeout(() => switchTab('swp'), 300);
+  if (hash === '#lump') setTimeout(() => switchTab('lump'), 300);
+});
 </script>
 
-<!-- ══ INSTALL BANNER ══ -->
-<div id="installBanner">
-  <div class="ib-icon">📲</div>
-  <div class="ib-text">
-    <div class="ib-title">Install FundFlow</div>
-    <div class="ib-sub">Add to home screen for offline access</div>
-  </div>
-  <button class="ib-install" onclick="triggerInstall()">Install</button>
-  <button class="ib-dismiss" onclick="dismissInstall()" aria-label="Dismiss">×</button>
-</div>
-
-<!-- ══ OFFLINE BADGE ══ -->
-<div id="offlineBadge" style="display:none">📴 Offline mode — all features still work</div>
-
-<!-- ══ TOAST ══ -->
-<div id="toast"></div>
-
-<style>
-/* Install Banner */
-#installBanner {
-  position: fixed;
-  bottom: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 32px);
-  max-width: 480px;
-  background: #111827;
-  border: 1px solid #1e2d45;
-  border-top: 2px solid #00e5a0;
-  border-radius: 14px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  z-index: 9999;
-  box-shadow: 0 -4px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(0,229,160,.1);
-  transition: bottom .4s cubic-bezier(.34,1.56,.64,1);
-}
-#installBanner.show { bottom: 20px; }
-
-.ib-icon { font-size: 26px; flex-shrink: 0; }
-.ib-text { flex: 1; min-width: 0; }
-.ib-title { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px; color: #e8edf5; }
-.ib-sub   { font-family: 'DM Mono', monospace; font-size: 10px; color: #6b7a99; margin-top: 2px; }
-
-.ib-install {
-  background: #00e5a0; color: #0a0e17;
-  border: none; border-radius: 8px;
-  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 13px;
-  padding: 8px 16px; cursor: pointer; transition: .2s;
-  flex-shrink: 0; white-space: nowrap;
-  -webkit-tap-highlight-color: transparent;
-}
-.ib-install:hover { background: #00ffb3; }
-
-.ib-dismiss {
-  background: none; border: none; color: #6b7a99;
-  font-size: 20px; cursor: pointer; padding: 4px 6px;
-  flex-shrink: 0; line-height: 1;
-  -webkit-tap-highlight-color: transparent;
-}
-.ib-dismiss:hover { color: #e8edf5; }
-
-/* Offline badge */
-#offlineBadge {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  background: rgba(255,107,107,.15);
-  border-bottom: 1px solid rgba(255,107,107,.3);
-  color: #ff6b6b;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  padding: 8px 16px;
-  text-align: center;
-  z-index: 9998;
-}
-
-/* Toast */
-#toast {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: #1a2235;
-  border: 1px solid #1e2d45;
-  color: #e8edf5;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  padding: 10px 20px;
-  border-radius: 30px;
-  white-space: nowrap;
-  z-index: 10000;
-  opacity: 0;
-  transition: opacity .3s, transform .3s;
-  pointer-events: none;
-}
-#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-</style>
 </body>
 </html>
