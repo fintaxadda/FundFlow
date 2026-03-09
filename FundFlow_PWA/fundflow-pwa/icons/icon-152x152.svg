@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="152" height="152" viewBox="0 0 152 152">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1829"/>
+      <stop offset="100%" style="stop-color:#111827"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00e5a0"/>
+      <stop offset="100%" style="stop-color:#00b37a"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="152" height="152" rx="33" fill="url(#bg)"/>
+  <!-- Grid lines subtle -->
+  <line x1="22" y1="76" x2="129" y2="76" stroke="#1e2d45" stroke-width="2"/>
+  <line x1="76" y1="22" x2="76" y2="129" stroke="#1e2d45" stroke-width="2"/>
+  <!-- Chart wave path -->
+  <polyline 
+    points="18,109 42,83 63,94 88,53 109,42 133,27"
+    fill="none" stroke="url(#wave)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Dot at peak -->
+  <circle cx="133" cy="27" r="9" fill="#00e5a0"/>
+  <!-- F letter mark subtle -->
+  <text x="21" y="57" font-family="serif" font-size="27" font-weight="bold" fill="rgba(0,229,160,0.25)">F</text>
+</svg>
